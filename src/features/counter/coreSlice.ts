@@ -27,7 +27,7 @@ export const counterSlice = createSlice({
     setData: (state, action: PayloadAction<ArrayOfAdaptedDataInterface>) => {
       state.data = action.payload || [];
     },
-    setId: (state, action: PayloadAction<number>) => {
+    setId: (state, action: PayloadAction<number | null>) => {
       state.id = action.payload 
     },
     removeElement: (state, action: PayloadAction<number>) => {

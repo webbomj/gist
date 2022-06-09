@@ -1,11 +1,10 @@
 import {FC, useState, useEffect} from 'react';
 import {
-  NodeModel,
   getDescendants
 } from "@minoru/react-dnd-treeview";
 import { AdaptedDataInterface } from '../../app/dataAdapter';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { initData, setData } from '../../features/counter/coreSlice';
+import { initData, setData} from '../../features/counter/coreSlice';
 import DnDProvider from '../DnDProvider/DnDProvider';
 import RightContentBlock from '../RightContentBlock/RightContentBlock';
 import s from './AppMain.module.css'
@@ -13,13 +12,15 @@ import s from './AppMain.module.css'
 const AppWrapper:FC = () => {
   const [treeData, setTreeData] = useState<AdaptedDataInterface[]>([]);
   
-  useEffect(() => {
-    dispatch(setData(treeData))
-  }, [treeData])
-
   const allData = useAppSelector(state => state.core.data)
   const selectedId = useAppSelector(state => state.core.id)
   const dispatch = useAppDispatch()
+  
+  useEffect(() => {
+    console.log('treedataUseEffect', treeData)
+    dispatch(setData(treeData))
+  }, [treeData, dispatch])
+
 
   const handleRefresh = () => {
     dispatch(initData('https://api.github.com/gists/e1702c1ef26cddd006da989aa47d4f62'))
@@ -29,13 +30,16 @@ const AppWrapper:FC = () => {
     console.log(allData)
   }
 
-  const handleDelete = (id: NodeModel["id"] | null) => {
-    if(typeof id === 'number') {
+  const handleDelete = (id: number | null) => {
+    if (typeof id === 'number') {
+      console.log('treedata', treeData)
       const deleteIds = [
         id,
-        ...getDescendants(treeData, id).map((node) => node.id)
+        ...getDescendants(allData, id).map((node) => node.id)
       ];
-      const newTree = treeData.filter((node) => !deleteIds.includes(node.id));
+      console.log('delteIds', deleteIds)
+      const newTree = allData.filter((node) => !deleteIds.includes(node.id));
+      console.log('newTree', newTree)
       setTreeData(newTree);
     }
   };

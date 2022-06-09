@@ -27,7 +27,6 @@ const DnDProvider:FC<TreePropsInterface> = ({allData, setTreeData}) => {
     dispatch(setId(id))
   }
 
-
   return (
     <DndProvider backend={MultiBackend} options={getBackendOptions()}>
       <Tree
@@ -36,14 +35,15 @@ const DnDProvider:FC<TreePropsInterface> = ({allData, setTreeData}) => {
         onDrop={handleDrop}
 
         render={(node, { depth, isOpen, onToggle }) => (
-          <>
+          <div>
             {node.droppable && (
               <span onClick={onToggle}>{isOpen ? "[-]" : "[+]"}</span>
             )}
             <div className={s.treeText} onClick={() => handleSelect(node.id)}>{node.text}</div>
-          </>
+          </div>
         )}
-        initialOpen = {[383000000001, 383000000002]}
+        initialOpen={true}
+        
       />
     </DndProvider>
   );
