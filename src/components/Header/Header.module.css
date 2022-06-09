@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 15px 70px;
+  background-color: #ffe5d9;
+}
+
+.h1 {
+  font-size: 30px;
+  color: #9d8189;
+}
+
+.button {
+  width: 70px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 3px solid #f4acb7;
+  background-color: #f4acb7;
+  text-decoration: none;
+  color: #9d8189;
+}
+
+.button:hover {
+  background-color: #ffcad4;
+  border-color: #ffcad4;
+}
