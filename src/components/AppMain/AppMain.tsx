@@ -17,7 +17,6 @@ const AppWrapper:FC = () => {
   const dispatch = useAppDispatch()
   
   useEffect(() => {
-    console.log('treedataUseEffect', treeData)
     dispatch(setData(treeData))
   }, [treeData, dispatch])
 
@@ -32,14 +31,11 @@ const AppWrapper:FC = () => {
 
   const handleDelete = (id: number | null) => {
     if (typeof id === 'number') {
-      console.log('treedata', treeData)
       const deleteIds = [
         id,
         ...getDescendants(allData, id).map((node) => node.id)
       ];
-      console.log('delteIds', deleteIds)
       const newTree = allData.filter((node) => !deleteIds.includes(node.id));
-      console.log('newTree', newTree)
       setTreeData(newTree);
     }
   };
